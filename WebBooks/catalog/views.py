@@ -6,6 +6,9 @@ from django.views import generic
 class BookListView(generic.ListView):
     model = Book
 
+class BookDetailView(generic.DetailView):
+    model = Book
+
 
 def index(request):
     num_books = Book.objects.all().count()
