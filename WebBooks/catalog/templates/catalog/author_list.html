@@ -7,7 +7,11 @@
         <p>
             {{author.first_name}} {{author.last_name}},
             <strong>Родился - </strong>{{author.date_of_brith}},
-            <strong>Умер - </strong>{{author.date_of_death}}</p>
+            {% if author.date_of_death == None %}
+                <strong>Жив по сей день</strong>
+            {% else %}
+                <strong>Умер - </strong>{{author.date_of_death}}</p>
+            {% endif %}
         {% endfor %}
     {% else %}
         <p>В базе данных нет авторов</p>
