@@ -7,6 +7,20 @@ class AuthorAdmin(admin.ModelAdmin):
     fields = ['first_name', 'last_name', ('date_of_brith', 'date_of_death')]
 
 
+@admin.register(BookInstance)
+class BookInstanceAdmin(admin.ModelAdmin):
+    list_display = ('book', 'status', 'borrower', 'due_back', 'id')
+    list_filter = ('status', 'due_back')
+    fieldsets = (
+        (
+            None, {'fields': ('book', 'imprint', 'inv_nom')}
+        ),
+        (
+          'Availability', {'fields': ('status', 'due_back', 'borrower')}
+        ),
+    )
+
+
 class BooksInstanceInline(admin.TabularInline):
     model = BookInstance
 
@@ -16,19 +30,6 @@ class BookAdmin(admin.ModelAdmin):
     list_display = ('title', 'genre', 'language', 'display_author')
     list_filter = ('genre', 'author')
     inlines = [BooksInstanceInline]
-
-
-@admin.register(BookInstance)
-class BookInstanceAdmin(admin.ModelAdmin):
-    list_filter = ('book', 'status')
-    fieldsets = (
-        (
-            'Экземпляр книги', {'fields': ('book', 'imprint', 'inv_nom')}
-        ),
-        (
-            'Статус и окончание его действия', {'fields': ('status', 'due_back')}
-        )
-    )
 
 
 admin.site.register(Author, AuthorAdmin)
