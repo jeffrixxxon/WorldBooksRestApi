@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Book, Author, BookInstance, Genre
+from .forms import AuthorForm
 
 
 class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
@@ -15,7 +16,7 @@ class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
 
 class BookListView(generic.ListView):
     model = Book
-    paginate_by = 3
+    paginate_by = 5
 
 
 class BookDetailView(generic.DetailView):
@@ -40,4 +41,11 @@ def index(request):
                                                   'num_authors': num_authors,
                                                   'num_visits': num_visits
                                                   })
+
+
+def authors_add(request):
+    author = Author.objects.all()
+    authorsform = AuthorForm()
+    return render(request, 'catalog/authors_add.html', {'form': authorsform, 'author': author})
+
 
