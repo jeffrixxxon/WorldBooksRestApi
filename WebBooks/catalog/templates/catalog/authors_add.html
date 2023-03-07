@@ -10,7 +10,7 @@
                 <td>{{author.id}}</td>
                 <td>{{author.first_name}}</td>
                 <td>{{author.last_name}}</td>
-                <td><a href="/editl/{{author.id}}">Изменить</a>,
+                <td><a href="/edit1/{{author.id}}">Изменить</a>,
                     <a href="/delete/{{author.id}}">Удалить</a></td>
             </tr>
         {% endfor %}
@@ -21,9 +21,9 @@
 
 <h3>Добавить в БД автора книги</h3>
 <form method="POST" action="/create/">
-    {% csrf_token %}
+        {% csrf_token %}
     <table>
-        {{form}}
+        {{ form }}
     </table>
     <input type="submit" value="Сохранить">
 </form>

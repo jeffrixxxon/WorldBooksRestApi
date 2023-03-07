@@ -103,7 +103,6 @@ class BookInstance(models.Model):
                                  verbose_name="Заказчик",
                                  help_text="Выберите заказчика книги")
 
-
     def __str__(self):
         return '%s %s %s' % (self.inv_nom, self.book, self.status)
 

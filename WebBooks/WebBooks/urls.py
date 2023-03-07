@@ -23,6 +23,9 @@ urlpatterns = [
     re_path(r'^books/$', views.BookListView.as_view(), name='books'),
     re_path(r'^authors/$', views.AuthorListView.as_view(), name='authors'),
     path('authors_add/', views.authors_add, name='authors_add'),
+    path('create/', views.create, name='create'),
+    path('edit1/<int:id>/', views.edit1, name='edit1'),
+    path('delete/<int:id>/', views.delete, name='delete'),
     path('', views.index, name='index'),
     path('admin/', admin.site.urls),
 ]
@@ -33,4 +36,11 @@ urlpatterns += [
 
 urlpatterns += [
     re_path(r'^mybooks/$', views.LoanedBooksByUserListView.as_view(), name='myborrowed')
+]
+
+
+urlpatterns += [
+    re_path(r'^book/create/$', views.BookCreate.as_view(), name='book_create'),
+    re_path(r'^book/update/(?P<pk>\d+)$', views.BookUpdate.as_view(), name='book_update'),
+    re_path(r'^book/delete/(?P<pk>\d+)$', views.BookDelete.as_view(), name='book_delete')
 ]

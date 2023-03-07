@@ -1,5 +1,6 @@
 from django import forms
 from datetime import date
+from .models import Book
 
 
 class AuthorForm(forms.Form):
@@ -11,3 +12,9 @@ class AuthorForm(forms.Form):
     date_of_death = forms.DateField(label='Дата смерти',
                                     initial=format(date.today()),
                                     widget=forms.widgets.DateInput(attrs={'type': 'date'}))
+
+
+class BookModelForm(forms.ModelForm):
+    class Meta:
+        model = Book
+        fields = ['title', 'genre', 'language', 'author', 'summary', 'isbn']
