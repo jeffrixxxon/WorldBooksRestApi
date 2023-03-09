@@ -10,7 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
+import dj_database_url
 from pathlib import Path
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = 'django-insecure-utrg9po9_*#cay$8ofsyr7kpo!q*7m8r%yd6fo32=i_ypi)rb'
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'utrg9po9_*#cay$o8ofsyr7kpo!q*7m8r%yd6fo32=i_ypi)rb')
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-utrg9po9_*#cay$o8ofsyr7kpo!q*7m8r%yd6fo32=i_ypi)rb')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = False
@@ -50,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'WebBooks.urls'
@@ -130,3 +133,10 @@ LOGIN_REDIRECT_URL = '/'
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+db_form_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_form_env)
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
