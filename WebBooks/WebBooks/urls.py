@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path, include
 from catalog import views
+from .api import router
 
 
 urlpatterns = [
@@ -27,6 +28,7 @@ urlpatterns = [
     path('edit1/<int:id>/', views.edit1, name='edit1'),
     path('delete/<int:id>/', views.delete, name='delete'),
     path('', views.index, name='index'),
+    path('api/v1/', include(router.urls)),
     path('admin/', admin.site.urls),
 ]
 
